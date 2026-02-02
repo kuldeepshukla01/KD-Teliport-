@@ -42,7 +42,7 @@ python3 "$AGENT_DIR/agent/main.py" "\$@"
 EOF
 
 chmod +x agent_wrapper
-sudo mv agent_wrapper "$INSTALL_DIR/agent"
+sudo mv agent_wrapper "$INSTALL_DIR/KD"
 
 echo -e "${GREEN}[+] Installation complete!${NC}"
-echo -e "Run 'agent \"scan localhost\"' to test."
+echo -e "Run 'KD \"scan localhost\"' to test."

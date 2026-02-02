@@ -4,16 +4,24 @@ import subprocess
 class Context:
     def __init__(self, config):
         self.config = config
+        from agent.db import Database
+        self.db = Database()
 
     def get_context(self):
         """
         Gather current environment context.
         """
+        targets = self.db.get_targets()
+        target_summary = f"{len(targets)} targets in scope"
+        if targets:
+            target_summary += ": " + ", ".join([t['ip'] for t in targets])
+
         return {
             "cwd": os.getcwd(),
             "shell": os.environ.get("SHELL", "/bin/bash"),
             "history": self._get_history(),
             "user": os.environ.get("USER", "unknown"),
+            "targets": target_summary,
         }
 
     def _get_history(self, lines=10):

@@ -23,7 +23,7 @@ def load_config(config_path=None):
 def main():
     parser = argparse.ArgumentParser(description="AI-Integrated Kali Linux Agent")
     parser.add_argument("prompt", nargs="*", help="The command or question for the agent")
-    parser.add_argument("--mode", choices=["explain", "suggest", "execute"], default="suggest", help="Operation mode")
+    parser.add_argument("--mode", choices=["explain", "suggest", "execute", "generate"], default="suggest", help="Operation mode")
     parser.add_argument("--config", help="Path to configuration file")
     
     args = parser.parse_args()
@@ -45,12 +45,19 @@ def main():
 
     llm = LLM(config)
     context = Context(config)
-    executor = Executor(config)
+    executor = Executor(config, llm)
     
     # Get context data
     ctx_data = context.get_context()
     
     print("Thinking...")
+    
+    if args.mode == "generate":
+        from agent.synthesizer import Synthesizer
+        synth = Synthesizer(config)
+        synth.synthesize(user_query)
+        return
+
     response = llm.generate(ctx_data, user_query)
     
     executor.handle(response, mode=args.mode)

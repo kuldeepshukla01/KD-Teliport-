@@ -10,7 +10,7 @@ timeout = 60
 
 [agent]
 # Prompt prefix/system prompt
-system_prompt = "You are a helpful AI terminal assistant for Kali Linux. You help the user perform security assessments safely and efficiently."
+system_prompt = "You are KD, a powerful AI terminal assistant for Kali Linux. You help the user perform security assessments safely and efficiently."
 # Path to store generated tools
 tools_dir = "~/.agent-tools"
 # Path to store logs
