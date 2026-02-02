@@ -1,41 +1,60 @@
-# AI-Integrated Kali Linux Agent
+# KD - AI Terminal Agent for Kali Linux
 
-An AI-powered terminal assistant designed for Kali Linux.
+**KD** is an advanced AI-powered terminal assistant designed specifically for offensive security workflows on Kali Linux. It acts as your pair programmer, tool builder, and safety guard.
 
-## Features
-- **Suggest & Execute**: Ask questions or request commands in natural language.
-- **Safety First**: Commands are reviewed by you before execution.
-- **Local LLM Support**: Designed to work with LocalAI, Ollama, or any OpenAI-compatible local API.
-- **Tool Generation**: (Coming Soon) Auto-generate Bash/Python scripts from your workflow.
+## Core Features
+
+### 🧠 Intelligent Assistance
+*   **Natural Language Command Execution**: Ask KD to "scan the network" or "find SUID binaries," and it will propose the correct commands.
+*   **Context Aware**: KD knows your shell history, current directory, and tracks your engagement scope via an internal database.
+*   **Self-Healing**: If a command fails, KD intercepts the error, analyzes it, and proposes a fix automatically.
+
+### 🛠️ Advanced Tool Synthesis
+*   **Auto-Code Tools**: Tell KD to "Create a Python keylogger" or "Write a port scanner," and it will generate full multi-file projects with `requirements.txt` and proper structure.
+    *   Command: `KD "make a tool that..." --mode generate`
+*   **Database Registration**: Generated tools are automatically registered and tracked.
+
+### 🛡️ Safety & Security
+*   **Strict Deletion Protocol**: KD prevents accidental data loss. If a command involves deletion (`rm`, `unlink`), KD:
+    1.  Inspects the file content.
+    2.  Explains *what* is inside and *why* it's being deleted.
+    3.  Requires you to explicitly type `yes`.
+*   **Human-in-the-loop**: You always have the final say before execution.
 
 ## Installation
 
 1.  **Prerequisites**:
-    - Python 3.10+
-    - A running local LLM (e.g., `ollama serve` or LocalAI) at `http://localhost:8080/v1` (configurable).
+    *   Python 3.10+
+    *   A running local LLM (e.g., `ollama serve` or LocalAI) at `http://localhost:8080/v1`.
 
 2.  **Install**:
     ```bash
-    git clone https://github.com/your-repo/ai-kali-agent.git
-    cd ai-kali-agent
+    git clone https://github.com/your-repo/KD-Teliport-.git
+    cd KD-Teliport-
     sudo ./scripts/install.sh
     ```
+    *This will install the `KD` binary to `/usr/local/bin`.*
 
 ## Usage
 
-Run the agent from anywhere:
-
+**Basic Command Suggestion:**
 ```bash
-agent "scan local network for open ports"
+KD "scan 192.168.1.10 for common vulnerabilities"
 ```
 
-Or enter interactive mode (if implemented):
+**Generate a New Tool:**
 ```bash
-agent
+KD "Create a python script to brute force SSH using a wordlist" --mode generate
 ```
+
+**Auto-Correction:**
+Just run a command via KD. If it fails, KD will help you fix it.
 
 ## Configuration
-Edit `~/.config/kali-ai-agent/config.toml` to change the LLM endpoint, model, or safety settings.
+Edit `~/.config/kali-ai-agent/config.toml` to customize:
+*   LLM Endpoint & Model
+*   System Prompt (Persona)
+*   Safety Settings
 
-## Kali Live ISO Build
-See `kali-live-build/` for instructions on how to build a custom Kali ISO with this agent pre-installed.
+## Building a Custom Kali ISO
+Check the `kali-live-build/` directory for hooks to include KD pre-installed in your custom Kali Linux ISO.
