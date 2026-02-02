@@ -1,0 +1,25 @@
+[api]
+# Service provider: 'local' (generic OpenAI compatible), 'ollama', etc.
+service_provider = "local"
+# Base URL for the API
+api_base = "http://localhost:8080/v1"
+# Default model to use
+model = "llama3-8b-8192" 
+# Timeout in seconds
+timeout = 60
+
+[agent]
+# Prompt prefix/system prompt
+system_prompt = "You are a helpful AI terminal assistant for Kali Linux. You help the user perform security assessments safely and efficiently."
+# Path to store generated tools
+tools_dir = "~/.agent-tools"
+# Path to store logs
+log_dir = "~/.local/share/kali-ai-agent/logs"
+# Default mode: 'confirm', 'suggest', 'auto' (use with caution)
+default_mode = "confirm"
+
+[safety]
+# Commands that are always allowed without confirmation (only in suggest/confirm mode)
+allowed_commands = ["ls", "pwd", "whoami", "id", "echo", "cat"]
+# Risk levels will be determined by the agent, but you can blacklist specific commands here
+blocked_commands = ["rm -rf /", ":(){ :|:& };:"]

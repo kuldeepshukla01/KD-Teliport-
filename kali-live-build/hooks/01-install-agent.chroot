@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "I: Installing AI Kali Agent..."
+
+# Install dependencies (if not handled by package lists)
+apt-get update
+apt-get install -y python3 python3-pip git
+
+# Clone the repo (replace with your actual public repo URL)
+git clone https://github.com/your-repo/ai-kali-agent.git /opt/ai-kali-agent
+
+# Run the installer
+cd /opt/ai-kali-agent
+chmod +x scripts/install.sh
+./scripts/install.sh
+
+# Cleanup to reduce ISO size
+rm -rf /opt/ai-kali-agent/.git
